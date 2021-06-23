@@ -1,0 +1,34 @@
+{
+  "item_type": "packagedfood",
+  "country": "UK",
+  "name": "Booja Booja Dairy Free Hazelnut Crunch Artist's Collection",
+  "description": "16 delicious multi-award winning chocolate truffles handmade by our small team in Norfolk. This beautiful box will remain a cherished piece of art long after the truffles are gone.\\n\\nFifteen years ago, Booja-Booja began a relationship with Persian Dowry in Kashmir, India. Now 150 talented artisans make and paint these beautiful boxes for us, using intricate designs, which have been passed down for generations. Persian Dowry endeavours to be a sustainable, community based organisation caring for the artists and their families. No machinery and minimal energy are used.",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/NK9Bc4Tja4Zh9feh.jpg",
+  "pictures": ["https://img-staging.veganapi.com/NK9Bc4Tja4Zh9feh.jpg"],
+  "ingredients": [
+    {"name": "chocolate", "organic": true,
+     "sub_ingredients": [
+       {"name": "cocoa solids", "organic": true, "percentage": 55},
+       {"name": "cane sugar", "organic": true},
+       {"name": "vanilla", "organic": true}
+     ]},
+    {"name": "coconut oil", "organic": true},
+    {"name": "hazelnuts", "organic": true, "allergen": true, "percentage": 18},
+    {"name": "cocoa powder", "organic": true}
+  ],
+  "quantity": {"quantity": 185, "unit": "g"},
+  "calories_per_100g": 637,
+  "nutrition": [
+    {"name": "total-fat", "quantity": 55},
+    {"name": "saturated-fat", "quantity": 33},
+    {"name": "total-carbohydrate", "quantity": 29},
+    {"name": "sugars", "quantity": 26},
+    {"name": "protein", "quantity": 5.9},
+    {"name": "salt", "quantity": 0.01}
+  ],
+  "weight": 185,
+  "labels": ["organic"],
+  "sku": "117455",
+  "allergens": ["tree-nuts"]
+}

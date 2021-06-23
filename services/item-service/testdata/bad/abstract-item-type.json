@@ -1,0 +1,30 @@
+{
+  "item_type": "experience",
+  "name": "Weekend break",
+  "description": "A lovely weekend away",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/gdfksljk4rjdfd.jpg",
+  "pictures": ["https://img-staging.veganapi.com/gdfksljk4rjdfd.jpg"],
+  "tags": ["beach", "cottage"],
+  "urls": {
+    "website": "https://seaside.com/cottage-1234",
+    "twitter": "https://twitter.com/seaside"
+  },
+  "body": "Two-day holiday rental",
+  "sale_period": { "start": "2019-07-01", "end": "2019-07-07" },
+  "available_period": { "start": "2019-08-01", "end": "2019-09-30" },
+  "active_period": { "start": "2019-08-07", "end": "2019-08-09" },
+  "price": 20000,
+  "currency": "EUR",
+  "address": {
+    "street_address": "Falkenweg 23",
+    "city": "Villach",
+    "postcode": "9500",
+    "country": "AT"
+  },
+  "location": {"latitude": 51.1, "longitude": 3.5},
+  "category": "cooking",
+  "recurrent_payment": false,
+  "contact_email": "info@wotsit.at",
+  "contact_phone": "+43 680 2234247"
+}

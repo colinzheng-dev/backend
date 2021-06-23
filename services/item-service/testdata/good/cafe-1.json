@@ -1,0 +1,31 @@
+{
+  "item_type": "cafe",
+  "name": "Kaffeemacher",
+  "description": "The best coffee in town!",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/xczxcdfw34r923.jpg",
+  "pictures": ["https://img-staging.veganapi.com/xczxcdfw34r923.jpg"],
+  "urls": {
+    "website": "https://kaffeemacher.at",
+    "facebook": "https://facebook.com/Kaffeemacher"
+  },
+  "address": {
+    "street_address": "Italienerstrasse 23",
+    "city": "Villach",
+    "postcode": "9500",
+    "country": "AT"
+  },
+  "location": {"latitude": 50.2, "longitude": 4.7},
+  "contact_email": "info@kffeemacher.at",
+  "contact_phone": "+43 3423 883042",
+  "opening_hours": [{"season": "All year",
+    "periods": [
+      { "is_overnight": false, "day": 0, "start": "0900", "end":  "1700"},
+      { "is_overnight": false, "day": 1, "start": "0900", "end":  "1700"},
+      { "is_overnight": false, "day": 2, "start": "0900", "end":  "1700"},
+      { "is_overnight": false, "day": 3, "start": "0900", "end":  "1700"},
+      { "is_overnight": false, "day": 4, "start": "0900", "end":  "1700"},
+      { "is_overnight": true,  "day": 5, "start": "0900", "end":  "0300"}]
+  }],
+  "amenities": ["free-wifi", "pets-allowed"]
+}

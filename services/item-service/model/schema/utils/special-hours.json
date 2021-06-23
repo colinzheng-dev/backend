@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/special-hours.json",
+  "title": "special-hours",
+  "description": "Special opening hours for a business.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "is_overnight": {
+        "description": "Whether the business opens overnight or not. When this is true, the end time will be lower than the start time.",
+        "type": "boolean",
+        "default": false
+      },
+      "is_closed": {
+        "description": "Whether this particular special hour represents a date where the business is closed.",
+        "type": "boolean"
+      },
+      "day": {
+        "description": "An ISO8601 date string representing the date for which these special hours apply.",
+        "type": "string",
+        "format": "date"
+      },
+      "start": {
+        "description": "Start of the opening hours in a day, in 24-hour clock notation, like 1000 means 10 AM.",
+        "type": "string",
+        "pattern": "[012][0-9][0-5][0-9]"
+      },
+      "end": {
+        "description": "End of the opening hours in a day, in 24-hour clock notation, like 2130 means 9:30 PM.",
+        "type": "string",
+        "pattern": "[012][0-9][0-5][0-9]"
+      }
+    },
+    "required": ["day", "start", "end"],
+    "additionalProperties": false
+  }
+}

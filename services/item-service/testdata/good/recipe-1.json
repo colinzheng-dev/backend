@@ -1,0 +1,16 @@
+{
+  "item_type": "recipe",
+  "name": "Watermelon smoothie",
+  "description": "A cooling smoothie for the summer",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/rgiejrfv590f.jpg",
+  "pictures": ["https://img-staging.veganapi.com/rgiejrfv590f.jpg"],
+  "content": "Blend together watermelon, fresh ginger and OJ",
+  "difficulty_level": 3,
+  "preparation_time": 5,
+  "servings": 1,
+  "ingredients": [
+    {"name": "watermelon", "quantity": "1", "unit": "medium sized"},
+    {"name": "fresh ginger", "quantity": "1", "unit": "small unit"},
+    {"name": "orange juice", "quantity": "200", "unit": "ml"}]
+}

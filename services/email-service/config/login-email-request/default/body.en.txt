@@ -1,0 +1,14 @@
+Hi there!
+
+Someone has requested a login for this email address to {{ .site.name }}.
+
+If you want to log in, please click on this link:
+
+https://{{ .site.url }}/login/{{.token}}
+
+or enter the code "{{.token}}" in the login page at
+https://{{ .site.url }}/login.
+
+Best wishes,
+
+{{ .site.signature }}

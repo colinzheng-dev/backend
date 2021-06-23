@@ -1,0 +1,5 @@
+db/migrations/
+model/schema/
+model/item_types.txt
+model/types/url_types.txt
+

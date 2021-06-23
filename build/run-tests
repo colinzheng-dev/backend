@@ -1,0 +1,10 @@
+#!/bin/bash
+svc=$1
+mods=$(find ./services/$svc -name \*_test.go -exec dirname '{}' \; | grep -v '/db-test$')
+if [ ! -z "$mods" ]
+then
+    echo $mods
+    go test -failfast $mods
+else
+    echo No tests for $svc
+fi

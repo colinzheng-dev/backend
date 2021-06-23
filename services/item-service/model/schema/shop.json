@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/shop-schema.json",
+  "title": "shop",
+  "extends": "venue",
+  "description": "Attributes for a shop venue",
+  "type": "object",
+  "properties": {
+    "is_physical_store": {
+      "description": "Is this venue shop at a physical location?",
+      "type": "boolean"
+    },
+    "is_online_shop": {
+      "description": "Is this venue shop online?",
+      "type": "boolean"
+    },
+    "minimum_free_delivery": {
+      "description": "Minimum purchase value to get free delivery.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "delivery_coverage": {
+      "description": "Country or region which the delivery can be made.",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["is_physical_store", "is_online_shop", "minimum_free_delivery", "delivery_coverage"]
+}

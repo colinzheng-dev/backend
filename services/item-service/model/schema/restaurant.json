@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/restaurant-schema.json",
+  "title": "restaurant",
+  "extends": "venue",
+  "description": "Attributes for a restaurant venue",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false,
+  "required": []
+}

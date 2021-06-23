@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/recipient-information.json",
+  "title": "recipient-information",
+  "description": "Recipient information.",
+  "type": "object",
+  "properties": {
+    "firstname": {
+      "description": "First name of the person that will receive the parcel",
+      "type": "string"
+    },
+    "lastname": {
+      "description": "Last name of the person that will receive the parcel",
+      "type": "string"
+    },
+    "company": {
+      "description": "Name of the company that the parcel will be delivered to.",
+      "type": "string"
+    },
+    "contact_email": {
+      "description": "Contact email of the person that will receive the parcel",
+      "type": "string",
+      "format": "email"
+    },
+    "contact_phone": {
+      "description": "Contact telephone of the person that will receive the parcel",
+      "type": "string"
+    }
+  },
+  "required": [
+    "firstname",
+    "lastname",
+    "contact_email",
+    "contact_phone"
+  ]
+}

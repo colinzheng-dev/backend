@@ -1,0 +1,8 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ["build", "-t", "module-builder", "-f", "build/module-builder/Dockerfile", "."]
+- name: gcr.io/cloud-builders/docker
+  args: ["tag", "module-builder", "eu.gcr.io/veganbase/module-builder"]
+
+images:
+- "eu.gcr.io/veganbase/module-builder"

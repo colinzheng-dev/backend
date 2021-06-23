@@ -1,0 +1,10 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ["run", "eu.gcr.io/veganbase/service-builder", "./build/run-tests", "cart-service"]
+- name: gcr.io/cloud-builders/docker
+  args: ["build", "-t", "cart-service", "-f", "services/cart-service/Dockerfile", "."]
+- name: gcr.io/cloud-builders/docker
+  args: ["tag", "cart-service", "eu.gcr.io/veganbase/cart-service:$SHORT_SHA"]
+
+images:
+- eu.gcr.io/veganbase/cart-service

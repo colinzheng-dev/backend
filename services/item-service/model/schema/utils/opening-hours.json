@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/opening-hours.json",
+  "title": "opening-hours",
+  "description": "Opening hours for a business",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "season": {
+        "type": "string"
+      },
+      "periods": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/hours"
+        }
+      }
+    },
+    "required": ["season", "periods"],
+    "additionalProperties": false
+  },
+  "definitions": {
+    "hours": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Identification of the hour element",
+          "type": "integer"
+        },
+        "is_overnight": {
+          "description": "Whether the business opens overnight or not. When this is true, the end time will be lower than the start time.",
+          "type": "boolean",
+          "default": false
+        },
+        "day": {
+          "description": "From 0 to 6, representing day of the week from Monday to Sunday. Notice that you may get the same day of the week more than once if the business has more than one opening time slots.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "start": {
+          "description": "Start of the opening hours in a day, in 24-hour clock notation, like 1000 means 10 AM.",
+          "type": "string",
+          "pattern": "[012][0-9][0-5][0-9]"
+        },
+        "end": {
+          "description": "End of the opening hours in a day, in 24-hour clock notation, like 2130 means 9:30 PM.",
+          "type": "string",
+          "pattern": "[012][0-9][0-5][0-9]"
+        }
+      },
+      "required": ["day", "start", "end"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "item_type": "dish",
+  "name": "Watermelon smoothie",
+  "description": "A cooling smoothie for the summer",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/rgiejrfv590f.jpg",
+  "pictures": ["https://img-staging.veganapi.com/rgiejrfv590f.jpg"],
+  "content": "Blend made with watermelon, fresh ginger and OJ",
+  "dish_category": "smoothies",
+  "free_from": ["sugar-free", "soy-free", "gluten-free"],
+  "price": 100,
+  "currency": "USD",
+  "ingredients": [ "watermelon", "fresh ginger", "orange juice"],
+  "available_quantity": 100
+}

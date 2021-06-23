@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/packaged-food-schema.json",
+  "title": "packagedfood",
+  "extends": "product",
+  "description": "Attributes for a packaged food product item",
+  "type": "object",
+  "properties": {
+    "preparation": {
+      "description": "Preparation method (free-form text: how to cook it)",
+      "type": "string"
+    },
+    "ingredients": {
+      "description": "Product ingredients",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ingredient"
+      }
+    },
+    "quantity": {
+      "description": "Quantity (in g or ml)",
+      "$ref": "#/definitions/quantity"
+    },
+    "serving_size": {
+      "description": "Serving size (in g or ml)",
+      "$ref": "#/definitions/quantity"
+    },
+    "servings_per_container": {
+      "description": "Number of servings per container",
+      "type": "integer",
+      "minimum": 1
+    },
+    "calories_per_100g": {
+      "description": "Calories per 100g",
+      "type": "integer",
+      "minimum": 1
+    },
+    "calories_from_fat_per_100g": {
+      "description": "Calories from fat per 100g",
+      "type": "integer",
+      "minimum": 1
+    },
+    "nutrition": {
+      "description": "Nutrition information for product (all per 100g)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/nutrition-info"
+      }
+    },
+    "sku": {
+      "description": "Stock control identifier",
+      "type": "string"
+    },
+    "hs_code": {
+      "description": "Harmonized System product code",
+      "type": "string",
+      "pattern": "[0-9]{4}\\.[0-9]{2}"
+    },
+    "barcode": {
+      "description": "Product barcode",
+      "type": "string"
+    },
+    "weight": {
+      "description": "Package weight in grams",
+      "type": "integer",
+      "minimum": 1
+    },
+    "labels": {
+      "description": "Generic product labels",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:product-label"
+      },
+      "uniqueItems": true
+    },
+    "allergens": {
+      "description": "Food allergens",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:food-allergen"
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [],
+  "definitions": {
+    "quantity": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "pattern": "^g|(ml)$"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["quantity", "unit"]
+    },
+    "ingredient": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "organic": {
+          "type": "boolean"
+        },
+        "allergen": {
+          "type": "boolean"
+        },
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "percentage_is_min": {
+          "type": "boolean"
+        },
+        "percentage_is_max": {
+          "type": "boolean"
+        },
+        "sub_ingredients": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ingredient" }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["name"]
+    },
+    "nutrition-info": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "format": "category:nutrition-info"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rda_pct": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": ["name", "quantity"]
+    }
+  }
+}

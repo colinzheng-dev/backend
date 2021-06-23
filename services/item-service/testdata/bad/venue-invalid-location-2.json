@@ -1,0 +1,40 @@
+{
+  "item_type": "hotel",
+  "name": "Almi's",
+  "description": "Almi's Berghotel is situated near the beautiful Obernbergersee",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/askdj45fsd32wef.jpg",
+  "pictures": ["https://img-staging.veganapi.com/askdj45fsd32wef.jpg"],
+  "tags": ["schnitzel", "lake", "mountains"],
+  "urls": {
+    "website": "https://almis.at",
+    "twitter": "https://twitter.com/almisberghotel"
+  },
+  "address": {
+    "street_address": "Hauptstrasse 12",
+    "city": "Obernbergersee",
+    "postcode": "6712",
+    "country": "AT"
+  },
+  "location": [51.1, 4.5],
+  "contact_email": "office@almis.at",
+  "contact_phone": "+43 45324 4564",
+  "opening_hours": [{"season": "All year",
+                     "periods": [
+                       { "open":  {"day":1, "time": "0600"},
+                         "close": {"day":1, "time": "2200"} },
+                       { "open":  {"day":2, "time": "0600"},
+                         "close": {"day":2, "time": "2200"} },
+                       { "open":  {"day":3, "time": "0600"},
+                         "close": {"day":3, "time": "2200"} },
+                       { "open":  {"day":4, "time": "0600"},
+                         "close": {"day":4, "time": "2200"} },
+                       { "open":  {"day":5, "time": "0600"},
+                         "close": {"day":5, "time": "2200"} },
+                       { "open":  {"day":6, "time": "0600"},
+                         "close": {"day":6, "time": "2200"} },
+                       { "open":  {"day":0, "time": "1200"},
+                         "close": {"day":0, "time": "2200"} }] }],
+  "amenities": ["car-park", "restaurant", "breakfast", "lunch", "dinner",
+                "group-friendly", "pets-allowed", "smoking-allowed"]
+}

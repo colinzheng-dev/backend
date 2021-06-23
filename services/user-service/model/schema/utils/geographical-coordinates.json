@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/geographical-coordinates.json",
+  "title": "geographical-coordinates",
+  "description": "Geographical coordinates.",
+  "type": "object",
+  "properties": {
+    "latitude":  { "type": "number", "minimum": -90,  "maximum": 90 },
+    "longitude": { "type": "number", "minimum": -180, "maximum": 180 }
+  },
+  "required": [ "latitude", "longitude" ]
+}

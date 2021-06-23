@@ -1,0 +1,22 @@
+{
+  "item_type": "room",
+  "name": "Presidential suite",
+  "description": "Presidential...",
+  "lang": "en",
+  "featured_picture": "https://img.veganlogin.com/blah.jpg",
+  "pictures": ["https://img.veganlogin.com/blah.jpg"],
+  "tags": ["four-poster", "regal"],
+  "beds": { "double": 1 },
+  "guest_limit": 4,
+  "room_size": 80.0,
+  "room_type": "suite",
+  "room_facilities": ["private-bathroom", "shower", "bath", "balcony", "desk",
+                      "tv", "air-conditioning", "telephone", "free-wifi"],
+  "room_services": ["daily-cleaning", "laundry-service"],
+  "room_rules": ["pets-allowed"],
+  "check_in_time": "1100",
+  "check_out_time": "1500",
+  "price": 1000,
+  "currency": "EUR",
+  "is_available": true
+}

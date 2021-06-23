@@ -1,0 +1,227 @@
+#!/usr/bin/env python2.7
+
+# TODOS:
+#
+#  - Generated code
+
+# TODO: DEAL WITH GENERATED CODE PROPERLY! NEED TO REDO
+# service-builder IF ANY GENERATOR SOURCES CHANGE, BUT ALSO NEED TO
+# MAKE SURE THAT SERVICES THAT DEPEND ON GENERATED FILES GET REBUILT.
+# (USE SOME SUPPORTING FILES TO RECORD THE INFORMATION?)
+
+import os
+import sys
+import json
+from subprocess import check_output, check_call, Popen, PIPE, STDOUT
+import threading
+from Queue import Queue
+
+dry_run = '--dry-run' in sys.argv or '-d' in sys.argv
+force_sequential = False
+force_services = False
+if '--force' in sys.argv or '-f' in sys.argv:
+    force_sequential = True
+    force_services = True
+
+if os.access('FORCE-BUILD', os.R_OK):
+    with open('FORCE-BUILD') as fp:
+        f = fp.read()
+        if f.startswith('all'):
+            force_sequential = True
+            force_services = True
+        elif f.startswith('services'):
+            force_services = True
+
+
+# Get list of changed files for this commit.
+
+branch_name = os.environ.get('BRANCH_NAME', 'master')
+
+
+# Get changes since last build. Slightly awkward, but it seems like
+# the best way to do it.
+
+changes = []
+go_changes = []
+chassis_go_changes = []
+if not force_services:
+    buildstr = check_output(["gcloud", "builds", "list",
+                             "--sort-by=~createTime", "--format=json"])
+    builds = json.loads(buildstr)
+    lastBuildCommit = None
+    for build in builds:
+        if build["status"] != "SUCCESS":
+            continue
+        if "images" in build:
+            continue
+        if "repoSource" not in build["source"]:
+            continue
+        source = build["source"]
+        rsource = source["repoSource"]
+        if (rsource["repoName"] != "github_veganbase_backend" or
+            rsource["branchName"] != branch_name):
+            continue
+        lastBuildCommit = build["sourceProvenance"]["resolvedRepoSource"]["commitSha"]
+        break
+    if lastBuildCommit is None:
+        print "Can't determine last build commit: rebuild all services..."
+        force_services = True
+    else:
+        changes = check_output(['git', 'diff', '--name-only', branch_name, lastBuildCommit])
+        changes = changes.splitlines()
+        go_changes = filter(lambda f: f.endswith('.go'), changes)
+        chassis_go_changes = filter(lambda f: f.startswith('chassis/'), go_changes)
+
+
+# Simplest approach: any change to chassis forces rebuild of all
+# services.
+
+if len(chassis_go_changes) > 0:
+    force_services = True
+
+
+# Determine needed sequential builds.
+
+sequential = []
+
+if 'build/base-builder/Dockerfile' in changes or force_sequential:
+    sequential.append('base-builder')
+
+if 'base-builder' in sequential or 'go.mod' in changes or force_sequential:
+    sequential.append('module-builder')
+
+# Always rebuild the service builder.
+sequential.append('service-builder')
+
+
+
+# Determine needed service builds.
+
+services = []
+regen_needed = False
+generators = []
+
+for service in os.listdir('services'):
+    sdir = os.path.join('services', service)
+    if not os.access(os.path.join(sdir, 'Dockerfile'), os.R_OK):
+        continue
+    if not os.access(os.path.join(sdir, 'cloudbuild.yaml'), os.R_OK):
+        continue
+    if force_services:
+        services.append(service)
+        continue
+    if len(filter(lambda f: f.startswith(sdir), changes)) > 0:
+        services.append(service)
+        continue
+    genfile = os.path.join(sdir, 'GENERATORS')
+    if os.access(genfile, os.R_OK):
+        addsrv = False
+        with open(genfile) as fp:
+            for gen in fp:
+                gen = os.path.join(sdir, gen)
+                addgen = False
+                if gen.endswith('/'):
+                    addgen = len(filter(lambda f: f.startswith(gen), changes)) > 0
+                else:
+                    addgen = gen in changes
+                if addgen:
+                    generators.append(gen)
+                    addsrv = True
+        if addsrv:
+            services.append(service)
+
+if regen_needed and 'service-builder' not in sequential:
+    sequential.append('service-builder')
+
+
+# Output for dry run.
+
+if len(sequential) > 0:
+    print "SEQUENTIAL BUILDS:"
+    for seq in sequential:
+        print "   ", seq
+    print ""
+
+if len(generators) > 0:
+    print "CHANGED CODE GENERATION SOURCES:"
+    for seq in generators:
+        print "   ", seq
+    print ""
+
+if len(services) > 0:
+    print "SERVICE BUILDS:"
+    for service in services:
+        print "   ", service
+    print ""
+
+if dry_run:
+    sys.exit(0)
+
+
+# Run sequential builds.
+
+for build in sequential:
+    print "SEQUENTIAL BUILD STEP:", build
+    check_call(["gcloud", "builds", "submit", ".",
+                "--config=build/" + build + "/cloudbuild.yaml"])
+print ""
+
+
+# Run service builds in parallel.
+
+short_sha = os.environ['SHORT_SHA']
+substitutions = 'SHORT_SHA=' + short_sha
+
+class ServiceBuilder(threading.Thread):
+    def __init__(self, service, q):
+        threading.Thread.__init__(self)
+        self.service = service
+        self.q = q
+
+    def run(self):
+        cmd = ["gcloud", "builds", "submit", ".",
+               "--substitutions=" + substitutions,
+               "--config=services/" + self.service + "/cloudbuild.yaml"]
+        p = Popen(cmd, stdout=PIPE, stderr=STDOUT)
+        for line in p.stdout:
+            self.q.put(self.service + ": " + line)
+        self.q.put("*** DONE " + self.service + "\n")
+        retcode = p.wait()
+        self.q.put("***EXIT:" + str(retcode) + " " + self.service)
+
+builders = []
+mux = Queue()
+for build in services:
+    print "PARALLEL BUILD STEP:", build
+    builders.append(ServiceBuilder(build, mux))
+
+for t in builders:
+    t.start()
+
+nrunning = len(builders)
+success = nrunning
+failed = 0
+failednames = []
+while nrunning > 0:
+    line = mux.get()
+    if line.startswith('***EXIT:'):
+        words = line.split(' ')
+        nrunning -= 1
+        if words[0] != '***EXIT:0':
+            failed += 1
+            failednames.append(words[1])
+            success -= 1
+    else:
+        print line,
+
+print "ALL DONE"
+
+print "TOTAL:", len(builders), "  SUCCESS:", success, "  FAIL:", failed
+if failed > 0:
+    print ""
+    print "FAILED:"
+    for f in failednames:
+        print "  ", f
+
+if failed > 0:
+    sys.exit(1)

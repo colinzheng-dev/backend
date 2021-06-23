@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/simple-purchase-fixed-schema.json",
+  "title": "simple-purchase-fixed",
+  "description": "Fixed fields for a simple-purchase of any item type",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "payment_method_id": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "quantity": {
+      "description": "Quantity of each item placed in the cart.",
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": ["name", "email", "payment_method_id", "item_id"],
+  "additionalProperties": true
+}

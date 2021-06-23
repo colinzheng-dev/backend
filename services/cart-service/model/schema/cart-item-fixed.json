@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/cart-item-fixed-schema.json",
+  "title": "cart-item-fixed",
+  "description": "Fixed fields for a cart-item of any type",
+  "type": "object",
+  "properties": {
+    "cart_id": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "item_type": {
+      "type": "string"
+    },
+    "quantity": {
+      "description": "Quantity of each item placed in the cart.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "subscribe": {
+      "description": "True if the item is going to be added to the subscription list.",
+      "type": "boolean",
+      "default": false
+    },
+    "delivery_every": {
+      "description": "Frequency that the item is going to be delivered automatically.",
+      "type": "integer",
+      "default": 1
+    }
+  },
+  "required": ["item_id", "quantity"],
+  "additionalProperties": true
+}

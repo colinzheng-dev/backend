@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/media-schema.json",
+  "title": "media",
+  "extends": "item",
+  "description": "Attributes for a media item (inherits from Item)",
+  "type": "object",
+  "properties": {},
+  "required": [ ]
+}

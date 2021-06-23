@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/room-schema.json",
+  "title": "room",
+  "extends": "experience",
+  "description": "Attributes for a room experience item",
+  "type": "object",
+  "properties": {
+    "room_type": {
+      "description": "The type of room (e.g. single, double, twin, apartment, etc.)",
+      "type": "string",
+      "format": "category:room-type"
+    },
+    "beds": {
+      "description": "Numbers of beds of different types in the room",
+      "$ref": "#/definitions/beds"
+    },
+    "guest_limit": {
+      "description": "Maximum number of guests allowed to stay in the room",
+      "type": "integer",
+      "minimum": 1
+    },
+    "room_size": {
+      "description": "Size of the room in square metres",
+      "type": "number",
+      "minimum": 0.0
+    },
+    "check_in_time": {
+      "description": "Earliest check-in time",
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    },
+    "check_out_time": {
+      "description": "Latest check-out time",
+      "type": "string",
+      "pattern": "^[0-9]{4}$"
+    },
+    "reception_opening_hours": {
+      "description": "Opening hours for the reception associated with the room",
+      "$ref": "http://veganapi.com/opening-hours.json"
+    },
+    "amenities": {
+      "description": "Room amenities (as list of available amenity flags)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:venue-amenity"
+      },
+      "uniqueItems": true
+    },
+    "room_facilities": {
+      "description": "Miscellaneous facilities offered in the room (e.g. private bathroom, balcony, TV, etc.)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:room-facility"
+      },
+      "uniqueItems": true
+    },
+    "room_services": {
+      "description": "Miscellaneous services offered to the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:room-service"
+      },
+      "uniqueItems": true
+    },
+    "room_rules": {
+      "description": "Miscellaneous rules for using the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:room-rule"
+      },
+      "uniqueItems": true
+    },
+    "room_labels": {
+      "description": "Miscellaneous labels for the room (e.g. organic, minimalist, etc.)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:room-label"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_entrance": {
+      "description": "Accessibility information for entrance to the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-entrance"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_movement": {
+      "description": "Accessibility information for movement in the venue containing the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-movement"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_bed": {
+      "description": "Accessibility information for the bed in the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-bed"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_bathroom": {
+      "description": "Accessibility information for the bathroom associated with the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-bathroom"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_common_areas": {
+      "description": "Accessibility information for the common areas in the venue containing the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-common-areas"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_parking": {
+      "description": "Accessibility information for parking at the venue containing the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-parking"
+      },
+      "uniqueItems": true
+    },
+    "accessibility_equipment": {
+      "description": "Additional accessibility equipment in the room",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:accessibility-equipment"
+      },
+      "uniqueItems": true
+    },
+    "price": {
+      "description": "The price of the room, as an integer number of minor currency units (viz. ISO-4217: https://en.wikipedia.org/wiki/ISO_4217)",
+      "type": "integer"
+    },
+    "currency": {
+      "description": "The currency used for pricing the room (ISO-4217 currency code)",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "is_available": {
+      "description": "Is this room available?",
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "beds", "guest_limit", "room_size", "room_type", "price", "currency", "is_available" ],
+  "definitions": {
+    "beds": {
+      "type": "object",
+      "properties": {
+        "single": { "type": "integer", "minimum": 0 },
+        "double": { "type": "integer", "minimum": 0 },
+        "sofa_bed": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

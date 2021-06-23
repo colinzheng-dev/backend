@@ -1,0 +1,49 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=build/id_rsa.enc
+  - --plaintext-file=/root/.ssh/id_rsa
+  - --location=global
+  - --keyring=build-keyring
+  - --key=github-deploy-key
+  volumes:
+  - name: ssh
+    path: /root/.ssh
+
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    chmod 600 /root/.ssh/id_rsa
+    cat <<EOF >/root/.ssh/config
+    Hostname github.com
+    IdentityFile /root/.ssh/id_rsa
+    EOF
+    mv build/known_hosts /root/.ssh/known_hosts
+  volumes:
+  - name: ssh
+    path: /root/.ssh
+
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'git@github.com:veganbase/backend',
+         '--branch', '$BRANCH_NAME',
+         '--single-branch']
+  volumes:
+  - name: ssh
+    path: /root/.ssh
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  env:
+  - 'PROJECT_ID=$PROJECT_ID'
+  - 'BUILD_ID=$BUILD_ID'
+  - 'COMMIT_SHA=$COMMIT_SHA'
+  - 'SHORT_SHA=$SHORT_SHA'
+  - 'REPO_NAME=$REPO_NAME'
+  - 'BRANCH_NAME=$BRANCH_NAME'
+  - 'TAG_NAME=$TAG_NAME'
+  - 'REVISION_ID=$REVISION_ID'
+  args: ['-c', 'cd backend ; build/run-build']

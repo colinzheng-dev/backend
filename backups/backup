@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+
+import os
+import json
+import requests
+import sys
+
+if len(sys.argv) != 3:
+    print('Usage: backup <http-endpoint> <output-directory>')
+    sys.exit(0)
+base_url = sys.argv[1]
+out_dir = sys.argv[2]
+
+item_dir = os.path.join(out_dir, 'items')
+image_dir = os.path.join(out_dir, 'images')
+os.makedirs(item_dir)
+os.makedirs(image_dir)
+
+per_page = 3
+page = 0
+
+images = set()
+
+# While not done...
+done = False
+iitem = 1
+while not done:
+    page += 1
+    url = (base_url + '/items?format=full&page=' +
+           str(page) + '&per_page=' + str(per_page))
+
+    resp = requests.get(url)
+    items = resp.json()
+
+    if len(items) < per_page:
+        done = True
+
+    for it in items:
+        print("\rItem {}".format(iitem), end='')
+        iitem += 1
+        for pic in it['pictures']:
+            images.add(pic)
+        fname = os.path.join(item_dir, it['id'] + '.json')
+        with open(fname, 'w') as fp:
+            json.dump(it, fp)
+
+print('')
+npics = len(images)
+ipic = 1
+for pic in images:
+    print("\rImage {}/{}".format(ipic, npics), end='')
+    fname = os.path.join(image_dir, pic.split('/')[-1])
+    resp = requests.get(pic)
+    with open(fname, 'wb') as fp:
+        fp.write(resp.content)
+    ipic += 1
+print('')

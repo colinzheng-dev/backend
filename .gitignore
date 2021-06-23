@@ -1,0 +1,47 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Auto-generated from SQL database migrations.
+migrations.go
+
+# Auto-generated from Protocol Buffers definitions.
+*.pb.go
+
+# Other auto-generated code.
+*_generated.go
+
+# Environment variables.
+.env
+
+# Goland
+.idea
+
+# Executables.
+services/api-gateway/api-gateway
+services/blob-service/blob-service
+services/email-service/email-service
+services/item-service/item-service
+services/site-service/site-service
+services/user-service/user-service
+services/search-service/search-service
+services/category-service/category-service
+services/purchase-service/purchase-service
+services/payment-service/payment-service
+services/cart-service/cart-service
+services/social-service/social-service
+services/webhook-service/webhook-service
+services/shipping-service/shipping-service
+
+admin
+
+.vscode

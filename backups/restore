@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+
+import os
+import json
+import subprocess
+import sys
+
+if len(sys.argv) != 3:
+    print('Usage: restore <http-endpoint> <input-directory>')
+    sys.exit(0)
+base_url = sys.argv[1]
+in_dir = sys.argv[2]
+
+item_dir = os.path.join(in_dir, 'items')
+image_dir = os.path.join(in_dir, 'images')
+
+item_progress = './item-progress'
+image_progress = './image-progress'
+os.makedirs(item_progress, exist_ok=True)
+os.makedirs(image_progress, exist_ok=True)
+
+pics = os.listdir(image_dir)
+npics = len(pics)
+ipic = 0
+for pic in pics:
+    ipic += 1
+    print("\rImage {}/{}".format(ipic, npics), end='')
+    fname = os.path.join(image_dir, pic)
+    pfname = os.path.join(image_progress, pic)
+    if os.access(pfname, os.R_OK):
+        continue
+    cmd = "cat {} | http -b --session restore POST {}/blobs".format(fname, base_url)
+    res = subprocess.run(cmd, shell=True, check=True, capture_output=True)
+    blob = json.loads(res.stdout)
+    with open(pfname, 'w') as fp:
+        print(blob['uri'], file=fp)
+
+print('')
+
+imageids = dict()
+for f in os.listdir(image_progress):
+    with open(os.path.join(image_progress, f)) as fp:
+        newid = fp.read()
+        imageids[f] = newid.strip()
+
+items = os.listdir(item_dir)
+nitems = len(items)
+iitem = 0
+for item in items:
+    iitem += 1
+    print("\rItem {}/{}".format(iitem, nitems), end='')
+    fname = os.path.join(item_dir, item)
+    pfname = os.path.join(item_progress, item)
+    if os.access(pfname, os.R_OK):
+        continue
+    with open(fname) as fp:
+        item = json.load(fp)
+    newpics = []
+    for pic in item['pictures']:
+        newpics.append(imageids[pic.split('/')[-1]])
+    item['pictures'] = newpics
+    del item['id']
+    del item['slug']
+    del item['approval']
+    del item['creator']
+    del item['owner']
+    del item['ownership']
+    with open('upload.json', 'w') as fp:
+        json.dump(item, fp)
+    cmd = "cat upload.json | http -b --session restore POST {}/items".format(base_url)
+    res = subprocess.run(cmd, shell=True, check=True, capture_output=True)
+    print(res.stdout)
+    newitem = json.loads(res.stdout)
+    if 'message' in newitem:
+        print(newitem)
+        sys.exit(1)
+    with open(pfname, 'w') as fp:
+        print(newitem['id'], file=fp)
+
+print('')

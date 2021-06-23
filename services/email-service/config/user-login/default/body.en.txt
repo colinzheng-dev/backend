@@ -1,0 +1,7 @@
+Hi there!
+
+Welcome to {{ .site.name }}!
+
+Best wishes,
+
+{{ .site.signature }}

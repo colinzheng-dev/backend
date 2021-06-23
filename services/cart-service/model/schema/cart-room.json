@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/cart-room-schema.json",
+  "title": "cart-room",
+  "description": "Attributes for a room cart item",
+  "type": "object",
+  "properties": {
+    "period": {
+      "description": "Specific period of time the room must be used",
+      "$ref": "#/definitions/time-period"
+    },
+    "guests": {
+      "description": "Quantity of each category of guests.",
+      "$ref": "#/definitions/guests"
+    }
+  },
+  "required": ["period", "guests"],
+  "additionalProperties": false,
+  "definitions": {
+    "time-period": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "pattern": "\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?$" },
+        "end": { "type": "string", "pattern": "\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d(?:\\.\\d+)?$" }
+      },
+      "required": ["start", "end"]
+    },
+    "guests": {
+      "type": "object",
+      "properties": {
+        "adults": { "type": "integer" },
+        "children": { "type": "integer"},
+        "infants": { "type": "integer"}
+      },
+      "required": ["adults"]
+    }
+  }
+}

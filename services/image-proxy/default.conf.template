@@ -1,0 +1,125 @@
+server {
+  listen 80;
+  server_name ${SERVER_NAME};
+
+  location /healthz {
+    return 200 "OK";
+  }
+
+  location / {
+    error_page 404 =404 /empty.gif;
+
+    proxy_pass http://localhost:10199;
+    proxy_cache image_cache;
+    proxy_cache_key "$host$document_uri$is_args$arg_key";
+    proxy_cache_lock on;
+    proxy_cache_valid 30d;  # Cache valid rescaled images for 30 days.
+    proxy_cache_valid any 15s;  # Everything else gets 15s.
+    proxy_cache_use_stale error timeout invalid_header updating;
+    proxy_http_version 1.1;
+    proxy_intercept_errors on;
+    expires 30d;
+
+    if ($request_method = 'OPTIONS') {
+      add_header 'Access-Control-Allow-Origin' '*';
+      add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+      return 204;
+    }
+    if ($request_method = 'GET') {
+      add_header 'Access-Control-Allow-Origin' '*';
+      add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+      add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+    }
+  }
+}
+
+server {
+  listen 10199;
+  server_name localhost;
+
+  set $backend 'storage.googleapis.com/${IMAGE_BUCKET}';
+
+  resolver 8.8.8.8;
+  resolver_timeout 5s;
+
+  proxy_buffering off;
+  proxy_http_version 1.1;
+  proxy_pass_request_body off;
+  proxy_pass_request_headers off;
+
+  # Clean up the headers going to and from Google Storage.
+  proxy_hide_header alt-svc;
+  proxy_hide_header alternate-protocol;
+  proxy_hide_header X-GUploader-UploadID;
+  proxy_hide_header x-goog-generation;
+  proxy_hide_header x-goog-hash;
+  proxy_hide_header x-goog-metageneration;
+  proxy_hide_header x-goog-storage-class;
+  proxy_hide_header x-goog-stored-content-encoding;
+  proxy_hide_header x-goog-stored-content-length;
+  proxy_hide_header x-xss-protection;
+  proxy_hide_header accept-ranges;
+  proxy_hide_header Set-Cookie;
+  proxy_ignore_headers Set-Cookie;
+  proxy_method GET;
+
+  # Image processing settings.
+  image_filter_buffer 12M;
+  image_filter_interlace on;
+
+  # These locations do the actual resizing.
+  location ~ ^/resize/([\d-]+)x([\d-]+)@(\d+)/(.*\.(png|jpg|webp)) {
+    set $image_path '$4';
+    image_filter_jpeg_quality $3;
+    image_filter_webp_quality $3;
+    image_filter resize $1 $2;
+    proxy_pass http://$backend/$4;
+  }
+  location ~ ^/crop/([\d-]+)x([\d-]+)@(\d+)/(.*\.(png|jpg|webp)) {
+    set $image_path '$4';
+    image_filter_jpeg_quality $3;
+    image_filter_webp_quality $3;
+    image_filter crop $1 $2;
+    proxy_pass http://$backend/$4;
+  }
+
+  # Rewrite routes with query parameters.
+  location ~ ^/(.*\.(png|jpg|webp)) {
+    set $image_path '$1';
+
+    # Default parameter values.
+    set $params 'none';
+    set $width '-';
+    set $height '-';
+    set $mode 'resize';
+    set $quality '85';
+
+    # Extract image transformation parameters.
+    if ($args ~ "width=(\d+)") {
+      set $width '$1';
+      set $params 'some';
+    }
+    if ($args ~ "height=(\d+)") {
+      set $height '$1';
+      set $params 'some';
+    }
+    if ($args ~ "quality=(\d+)") {
+      set $quality '$1';
+      set $params 'some';
+    }
+    if ($args ~ "fill=true") {
+      set $mode 'crop';
+      set $params 'some';
+    }
+
+    # If any parameters were set, redirect to the appropriate
+    # transformation endpoint, otherwise serve the untransformed
+    # image.
+    if ($params = 'some') {
+      rewrite ^ /${mode}/${width}x${height}@${quality}/$image_path;
+    }
+    proxy_pass http://$backend/$image_path;
+  }
+}
+
+proxy_cache_path /tmp/nginx-images levels=1:2 keys_zone=image_cache:16M inactive=60d max_size=200M;

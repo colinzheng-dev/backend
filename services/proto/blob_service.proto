@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package blob_service;
+
+option go_package = "github.com/veganbase/backend/services/proto";
+
+import "google/protobuf/timestamp.proto";
+
+service BlobService {
+  rpc CreateBlob(CreateBlobRequest) returns (BlobInfo);
+  rpc RetrieveBlob(SingleBlobRequest) returns (BlobInfo);
+  rpc UpdateBlob(UpdateBlobRequest) returns (BlobInfo);
+  rpc DeleteBlob(SingleBlobRequest) returns (BlobInfo);
+  rpc RetrieveBlobs(RetrieveBlobsRequest) returns (BlobsInfo);
+  rpc GetTagList(GetTagListRequest) returns (TagList);
+
+  rpc AddBlobToItem(BlobItemAssocRequest) returns (Empty);
+  rpc RemoveBlobFromItem(BlobItemAssocRequest) returns (Empty);
+  rpc RemoveItemBlobs(RemoveItemBlobsRequest) returns (Empty);
+}
+
+message CreateBlobRequest {
+  bytes image_data = 1;
+}
+
+message SingleBlobRequest {
+  string id = 1;
+}
+
+message UpdateBlobRequest {
+  string id = 1;
+  TagList tags = 2;
+}
+
+message RetrieveBlobsRequest {
+  string user_id = 1;
+  TagList tags = 2;
+  uint32 page = 3;
+  uint32 per_page = 4;
+}
+
+message BlobItemAssocRequest {
+  string blob_id = 1;
+  string item_id = 2;
+}
+
+message RemoveItemBlobsRequest {
+  string item_id = 1;
+}
+
+message GetTagListRequest {}
+
+message BlobInfo {
+  string id = 1;
+  string url = 2;
+  string format = 3;
+  uint32 size = 4;
+  string owner = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message BlobsInfo {
+  repeated BlobInfo blobs = 1;
+}
+
+message TagList {
+  repeated string tags = 1;
+}
+
+message Empty {}

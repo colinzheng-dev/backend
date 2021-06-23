@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/organisation.json",
+  "title": "organisation",
+  "description": "Attributes for an organisation",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Human-readable name for organisation",
+      "type": "string",
+      "minLength": 3
+    },
+    "description": {
+      "description": "Full description of organisation",
+      "type": "string"
+    },
+    "logo": {
+      "description": "Logo for organisation",
+      "type": "string",
+      "format": "uri"
+    },
+    "address": {
+      "description": "Address for the organisation",
+      "$ref": "#/definitions/address"
+    },
+    "contact_email": {
+      "description": "Organisation contact email",
+      "type": "string",
+      "format": "email"
+    },
+    "contact_phone": {
+      "description": "Organisation contact phone number (in ITU E.123 format for international numbers)",
+      "type": "string",
+      "pattern": "^\\+(?:[0-9] ?){6,14}[0-9]$"
+    },
+    "urls": {
+      "description": "URLs for organisation, by type",
+      "type": "object",
+      "properties": {
+        "website": { "type": "string", "format": "uri" },
+        "facebook": { "type": "string", "format": "uri" },
+        "instagram": { "type": "string", "format": "uri" },
+        "linkedin": { "type": "string", "format": "uri" },
+        "twitter": { "type": "string", "format": "uri" },
+        "link": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    },
+    "industry": {
+      "description": "Industry labels for organisation",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "category": "org-industry"
+      },
+      "uniqueItems": true
+    },
+    "year_founded": {
+      "description": "Year the organisation was founded",
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 2100
+    },
+    "employees": {
+      "description": "Count of employees in the the organisation",
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false,
+  "required": ["name", "description", "contact_phone", "contact_email", "logo", "employees", "year_founded"],
+  "definitions": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street_address": {
+          "description": "Street address",
+          "type": "string"
+        },
+        "city": {
+          "description": "City",
+          "type": "string"
+        },
+        "postcode": {
+          "description": "Postcode",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country (as ISO 3166-1 two letter code)",
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "latitude":  { "type": "number", "minimum": -90,  "maximum": 90 },
+            "longitude": { "type": "number", "minimum": -180, "maximum": 180 }
+          }
+        }
+      },
+      "required": [ "street_address", "city", "country"]
+    }
+  }
+}

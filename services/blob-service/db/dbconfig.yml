@@ -1,0 +1,11 @@
+development:
+    dialect: postgres
+    datasource: dbname=vb_blobs sslmode=disable
+    dir: migrations
+    table: migrations
+
+production:
+    dialect: postgres
+    datasource: dbname=vb_blobs
+    dir: migrations
+    table: migrations

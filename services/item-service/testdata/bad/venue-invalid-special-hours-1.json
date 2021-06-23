@@ -1,0 +1,45 @@
+{
+  "item_type": "hotel",
+  "name": "Almi's",
+  "description": "Almi's Berghotel is situated near the beautiful Obernbergersee",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/askdj45fsd32wef.jpg",
+  "pictures": ["https://img-staging.veganapi.com/askdj45fsd32wef.jpg"],
+  "tags": ["schnitzel", "lake", "mountains"],
+  "urls": {
+    "website": "https://almis.at",
+    "twitter": "https://twitter.com/almisberghotel"
+  },
+  "address": {
+    "street_address": "Hauptstrasse 12",
+    "city": "Obernbergersee",
+    "postcode": "6712",
+    "country": "AT"
+  },
+  "location": {"latitude": 50.4, "longitude": 4.5},
+  "contact_email": "office@almis.at",
+  "contact_phone": "+43 45324 4564",
+  "opening_hours": [
+    {
+      "season": "All year",
+      "periods": [
+        { "is_overnight": false, "day": 0, "start": "0000", "end":  "0000"},
+        { "is_overnight": false, "day": 1, "start": "0000", "end":  "0000"},
+        { "is_overnight": false, "day": 2, "start": "0900", "end":  "1700"},
+        { "is_overnight": false, "day": 3, "start": "0900", "end":  "1700"},
+        { "is_overnight": false, "day": 4, "start": "0900", "end":  "1700"},
+        { "is_overnight": true,  "day": 5, "start": "0900", "end":  "0300"}
+      ]
+    }
+  ],
+  "special_hours": [
+    { "is_overnight": false, "day": "2019-01-01", "start": "0900", "end":  "0300"},
+    { "is_overnight": false, "day": "2019-01-02", "start": "0900", "end":  "1700"},
+    { "is_overnight": false, "day": "2019-01-31", "start": "0900", "end":  "0300"},
+    { "is_overnight": false, "day": "2019-02-01", "start": "0200", "end":  "1700"},
+    { "is_overnight": false, "day": "2019-12-30", "start": "0900", "end":  "1700"},
+    { "is_overnight": false, "day": "2019-12-31", "start": "0900", "end":  "1700"}
+  ],
+  "amenities": ["car-park", "restaurant", "breakfast", "lunch", "dinner",
+                "group-friendly", "pets-allowed", "smoking-allowed"]
+}

@@ -1,0 +1,31 @@
+{
+  "item_type": "restaurant",
+  "name": "VINS Vegan",
+  "description": "Delicious vegan food",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/234rfdwerw3rlfd.jpg",
+  "pictures": ["https://img-staging.veganapi.com/234rfdwerw3rlfd.jpg"],
+  "urls": {
+    "facebook": "https://facebook.com/VINS-Vegan"
+  },
+  "address": {
+    "street_address": "Villacherstrasse 87",
+    "city": "Feistritz an der Drau",
+    "postcode": "9710",
+    "country": "AT"
+  },
+  "location": {"latitude": 50.2, "longitude": 4.6},
+  "contact_email": "vins_vegan@gmx.at",
+  "contact_phone": "+43 2345 789342",
+  "opening_hours": [{"season": "All year",
+                     "periods": [
+                       { "is_overnight": false, "day": 0, "start": "0900", "end":  "1700"},
+                       { "is_overnight": false, "day": 1, "start": "0900", "end":  "1700"},
+                       { "is_overnight": false, "day": 2, "start": "0900", "end":  "1700"},
+                       { "is_overnight": false, "day": 3, "start": "0900", "end":  "1700"},
+                       { "is_overnight": false, "day": 4, "start": "0900", "end":  "1700"},
+                       { "is_overnight": true,  "day": 5, "start": "0900", "end":  "0300"}]
+                  }],
+  "amenities": ["car-park", "restaurant", "lunch", "dinner",
+                "pets-allowed", "full-vegan"]
+}

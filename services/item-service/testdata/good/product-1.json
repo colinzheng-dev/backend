@@ -1,0 +1,50 @@
+{
+  "item_type": "packagedfood",
+  "name": "Hippeas - Organic Chickpea Puffs - Chilli Haze ",
+  "country": "UK",
+  "description": "This is a call to the modern hippies. Who want goodness for mind, body and soil and rally behind those that want the same. Let's stand together: arms in the air, flowers in our hair and crumbs in our beards.\n\n6 delicious flavours to choose from:\n\n* Take It Cheesy\n* Sweet & Smokin'\n* In Herbs We Trust\n* Far Out Fajita\n* Salt & Vinegar Vibes\n* Chilli Haze",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/hfOJXP8BTR2mr5Qr.jpg",
+  "pictures": ["https://img-staging.veganapi.com/hfOJXP8BTR2mr5Qr.jpg"],
+  "ingredients": [
+    {"name": "chickpeas", "organic": true, "percentage": 39},
+    {"name": "quinoa", "organic": true},
+    {"name": "tapioca", "organic": true},
+    {"name": "sunflower oil", "organic": true},
+    {"name": "Sriracha chilli flavour seasoning", "organic": true, "percentage": 10,
+     "sub_ingredients": [
+       {"name": "rice flour", "organic": true},
+       {"name": "spices", "organic": true,
+        "sub_ingredients": [
+          {"name": "paprika", "organic": true},
+          {"name": "chilli", "organic": true},
+          {"name": "garlic", "organic": true},
+          {"name": "cumin", "organic": true},
+          {"name": "coriander seeds", "organic": true},
+          {"name": "ginger", "organic": true}
+        ]},
+       {"name": "sea salt"},
+       {"name": "cane sugar", "organic": true},
+       {"name": "onions", "organic": true},
+       {"name": "tomatoes", "organic": true},
+       {"name": "yeast powder", "organic": true},
+       {"name": "calcium carbonate E170"},
+       {"name": "spice extracts"}
+     ]},
+    {"name": "rice protein", "organic": true}
+  ],
+  "calories_per_100g": 406,
+  "nutrition": [
+    {"name": "total-fat", "quantity": 17},
+    {"name": "saturated-fat", "quantity": 1.9},
+    {"name": "total-carbohydrate", "quantity": 48.1},
+    {"name": "sugars", "quantity": 4.3},
+    {"name": "protein", "quantity": 14.6},
+    {"name": "dietary-fibre", "quantity": 8.5},
+    {"name": "salt", "quantity": 1.5}
+  ],
+  "weight": 78,
+  "sku": "117455",
+  "labels": ["gluten-free", "nut-free", "organic", "soy-free", "wheat-free"],
+  "allergens": []
+}

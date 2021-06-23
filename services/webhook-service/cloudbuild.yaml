@@ -1,0 +1,10 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ["run", "eu.gcr.io/veganbase/service-builder", "./build/run-tests", "webhook-service"]
+- name: gcr.io/cloud-builders/docker
+  args: ["build", "-t", "webhook-service", "-f", "services/webhook-service/Dockerfile", "."]
+- name: gcr.io/cloud-builders/docker
+  args: ["tag", "webhook-service", "eu.gcr.io/veganbase/webhook-service:$SHORT_SHA"]
+
+images:
+- "eu.gcr.io/veganbase/webhook-service"

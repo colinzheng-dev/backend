@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/recipe-schema.json",
+  "title": "recipe",
+  "extends": "media",
+  "description": "Attributes for a recipe media item",
+  "type": "object",
+  "properties": {
+    "difficulty_level": {
+      "description": "Level of difficulty",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "preparation_time": {
+      "description": "Time to prepare this recipe (in minutes).",
+      "type": "integer"
+    },
+    "servings": {
+      "description": "How many servings this recipe will make.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "ingredients": {
+      "description": "List of ingredients used in this recipe.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ingredient"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["difficulty_level","preparation_time","servings","ingredients"],
+  "definitions": {
+    "ingredient": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string" },
+        "quantity": {"type": "string"},
+        "unit": { "type": "string" }
+      },
+      "required": [ "name", "quantity", "unit"]
+    }
+  }
+}

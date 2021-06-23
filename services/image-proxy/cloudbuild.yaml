@@ -1,0 +1,8 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ["build", "-t", "image-proxy", "-f", "services/image-proxy/Dockerfile", "."]
+- name: gcr.io/cloud-builders/docker
+  args: ["tag", "image-proxy", "eu.gcr.io/veganbase/image-proxy:$SHORT_SHA"]
+
+images:
+- "eu.gcr.io/veganbase/image-proxy"

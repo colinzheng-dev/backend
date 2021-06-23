@@ -1,0 +1,8 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ["build", "-t", "service-builder", "-f", "build/service-builder/Dockerfile", "."]
+- name: gcr.io/cloud-builders/docker
+  args: ["tag", "service-builder", "eu.gcr.io/veganbase/service-builder"]
+
+images:
+- "eu.gcr.io/veganbase/service-builder"

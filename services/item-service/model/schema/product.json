@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/product-schema.json",
+  "title": "product",
+  "extends": "item",
+  "description": "Attributes for a product item (inherits from Item)",
+  "type": "object",
+  "properties": {
+    "country": {
+      "description": "Country of origin (as ISO 3166-1 two letter code)",
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:product-certification"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,16 @@
+{
+  "item_type": "productoffering",
+  "name": "productoffering test",
+  "description": "This is a productoffering",
+  "tags":["testtag"],
+  "lang": "en",
+  "urls":{},
+  "owner":"",
+  "featured_picture": "https://img-staging.veganapi.com/hfOJXP8BTR2mr5Qr.jpg",
+  "pictures": ["https://img-staging.veganapi.com/hfOJXP8BTR2mr5Qr.jpg"],
+  "price": 100,
+  "compare_at_price": 101,
+  "currency": "USD",
+  "available_quantity": 10,
+  "availability_zones": [{ "name":"Brazil", "type":"country", "reference": 4640 }]
+}

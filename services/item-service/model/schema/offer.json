@@ -1,0 +1,81 @@
+  {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/offer-schema.json",
+  "title": "offer",
+  "extends": "experience",
+  "description": "Attributes for a offer experience item",
+  "type": "object",
+  "properties": {
+    "sale_period": {
+      "description": "The period of time when this offer is available for sale  (can be indefinite, signalled by a nil value)",
+      "oneOf": [
+        { "$ref": "#/definitions/time-period" },
+        { "type": "null" }
+      ]
+    },
+    "available_period": {
+      "description": "Period of time during which the offer is available for use",
+      "$ref": "#/definitions/time-period"
+    },
+    "fixed_period": {
+      "description": "Fixed dates to use the offer. If this field is present, the user cannot choose other dates when adding the offer to a cart.",
+      "$ref": "#/definitions/time-period"
+    },
+    "price": {
+      "description": "The price of the offer, as an integer number of minor currency units (viz. ISO-4217: https://en.wikipedia.org/wiki/ISO_4217)",
+      "type": "integer"
+    },
+    "currency": {
+      "description": "The currency used for pricing the offer (ISO-4217 currency code)",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "address": {
+      "description": "Address of the offer location",
+      "$ref": "http://veganapi.com/address.json"
+    },
+    "location": {
+      "description": "Location where the offer occurs",
+      "$ref": "http://veganapi.com/geographical-coordinates.json"
+    },
+    "category": {
+      "description": "A sub-category for the offer, e.g. concert, class, sports, health, etc.",
+      "type": "string",
+      "format": "category:category-offer"
+    },
+    "contact_email": {
+      "description": "Contact email for person managing the offer",
+      "type": "string",
+      "format": "email"
+    },
+    "contact_phone": {
+      "description": "Contact telephone number for person managing the offer",
+      "type": "string",
+      "pattern": "^\\+(?:[0-9] ?){6,14}[0-9]$"
+    },
+    "recurrent_payment": {
+      "description": "Is this a recurring offer, i.e. a subscription?",
+      "type": "boolean"
+    },
+    "is_available": {
+      "description": "Is this offer available?",
+      "type": "boolean"
+    },
+    "available_quantity": {
+      "description": "The quantity available for sale",
+      "type": "integer"
+    }
+  },
+  "required": ["sale_period", "available_period", "price", "currency", "is_available", "available_quantity" ],
+  "additionalProperties": false,
+  "definitions": {
+    "time-period": {
+      "type": "object",
+      "properties": {
+        "start": { "type": "string", "format": "date" },
+        "end": { "type": "string", "format": "date" }
+      },
+      "required": ["start", "end"]
+    }
+  }
+}

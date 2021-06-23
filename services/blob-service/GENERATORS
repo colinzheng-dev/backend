@@ -1,0 +1,2 @@
+db/migrations/
+../proto/blog_service.proto

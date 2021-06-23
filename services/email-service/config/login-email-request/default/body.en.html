@@ -1,0 +1,16 @@
+<html>
+  <body>
+    <p>Hi there!</p>
+
+    <p>Someone has requested a login for this email address to {{ .site.name }}.</p>
+
+    <p>If you want to log in, please click
+      <a href="https://{{ .site.url }}/login/{{ .token }}">here</a>
+      or enter the code "{{.Token}}" in the
+      <a href="{{ .site.url }}/login">{{ .site.name }} login page</a>.</p>
+
+    <p>Best wishes,</p>
+
+    <p>{{ .site.signature }}</p>
+  </body>
+</html>

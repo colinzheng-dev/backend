@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/venue-schema.json",
+  "title": "venue",
+  "extends": "item",
+  "description": "Attributes for a venue item (inherits from Item)",
+  "type": "object",
+  "properties": {
+    "address": {
+      "description": "Address of the venue location",
+      "$ref": "http://veganapi.com/address.json"
+    },
+    "location": {
+      "description": "Venue location",
+      "$ref": "http://veganapi.com/geographical-coordinates.json"
+    },
+    "contact_email": {
+      "description": "Venue contact email",
+      "type": "string",
+      "format": "email"
+    },
+    "contact_phone": {
+      "description": "Venue contact phone number (in ITU E.123 format for international numbers)",
+      "type": "string",
+      "pattern": "^\\+(?:[0-9] ?){6,14}[0-9]$"
+    },
+    "opening_hours": {
+      "description": "Venue opening hours",
+      "$ref": "http://veganapi.com/opening-hours.json"
+    },
+    "special_hours": {
+      "description": "Venue special hours",
+      "$ref": "http://veganapi.com/special-hours.json"
+    },
+    "amenities": {
+      "description": "Venue amenities (as list of available amenity flags)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "category:venue-amenity"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [ "address", "location" ]
+}

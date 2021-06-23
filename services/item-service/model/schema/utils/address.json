@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://veganapi.com/address.json",
+  "title": "address",
+  "description": "An address: street address, city, postcode, country.",
+  "type": "object",
+  "properties": {
+    "street_address": {
+      "description": "Street address",
+      "type": "string"
+    },
+    "city": {
+      "description": "City",
+      "type": "string"
+    },
+    "postcode": {
+      "description": "Postcode",
+      "type": "string"
+    },
+    "country": {
+      "description": "Country (as ISO 3166-1 two letter code)",
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    }
+  },
+  "required": [ "street_address", "city", "country" ]
+}

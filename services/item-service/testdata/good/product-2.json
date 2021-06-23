@@ -1,0 +1,26 @@
+{
+  "item_type": "packagedfood",
+  "country": "GK",
+  "name": "Clearspring - Organic Avocado Oil",
+  "description": "Cold-pressed from the creamy flesh of Chilean avocados, Clearspring Organic Avocado Oil has a delicious, nutty flavour which is perfect for a large range of dishes. It can be use for dipping with bread, adding colour, smoothness and flavour to dressings, stir-frying and even deep-frying as it has a very high smoke point. It is also cholesterol free, rich in vitamin E, omega 3 and 6 and it’s high in monounsaturated fat. In many countries is it is a recommended ingredient as part of a healthy heart diet.",
+  "lang": "en",
+  "featured_picture": "https://img-staging.veganapi.com/b4hGHRpN4DKh3wYS.jpg",
+  "pictures": ["https://img-staging.veganapi.com/b4hGHRpN4DKh3wYS.jpg"],
+  "ingredients": [
+    {"name": "avocados", "organic": true}
+  ],
+  "quantity": {"quantity": 250, "unit": "ml"},
+  "calories_per_100g": 828,
+  "nutrition": [
+    {"name": "protein", "quantity": 0},
+    {"name": "total-carbohydrate", "quantity": 0},
+    {"name": "sugars", "quantity": 0},
+    {"name": "total-fat", "quantity": 92},
+    {"name": "saturated-far", "quantity": 13},
+    {"name": "dietary-fibre", "quantity": 0},
+    {"name": "sodium", "quantity": 0}
+  ],
+  "labels": ["gluten-free", "nut-free", "organic", "soy-free", "wheat-free"],
+  "sku": "117455",
+  "allergens": []
+}

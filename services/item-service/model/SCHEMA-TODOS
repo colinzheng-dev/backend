@@ -1,0 +1,12 @@
+venue.json
+
+ - Add amenity format for items in "amenities" field.
+ - Add ISO 3166-1 country format?  (Or just stick with RE?)
+ - Add ITU E.123 phone number format?  (Or just stick with RE?)
+
+offer.json
+
+ - Add ISO 3166-1 country format?  (Or just stick with RE?)
+ - Add format for offer categories?
+ - Handle addresses the same way as for venues? i.e. address + city +
+   postcode + country
